@@ -32,7 +32,7 @@ public class Main {
 			// parse the arguments.
 			parser.parseArgument(args);
 
-
+			command.perform(this);
 		} catch (CmdLineException e) {
 			// if there's a problem in the command line,
 			// you'll get this exception. this will report
