@@ -1,0 +1,29 @@
+@startuml
+
+class Main
+
+interface Command {
+    public void perform(Main main)
+}
+
+class Post implements Command {
+    String user
+    String message
+}
+class Read implements Command {
+    String user
+}
+class Follow implements Command {
+    String user1
+    String user2
+}
+class Unfollow implements Command {
+    String user1
+    String user2
+
+}
+class Wall implements Command {
+    String user
+}
+
+@enduml
