@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 import org.kohsuke.args4j.Argument;
 
-public class Read implements Command {
+public class Wall implements Command {
 	@Argument(index = 0, metaVar = "login", usage="User who wants to post a message") 
 	String user;
 
@@ -18,13 +17,12 @@ public class Read implements Command {
 		List<Message> messages = new ArrayList<>();
 		User orCreate = store.getOrCreate(user);
 		messages.addAll(orCreate.messages);
-		for(Message m : messages) {
-			logger.log(Level.INFO, format(m));
+		for(User f : orCreate.followed) {
+			messages.addAll(f.messages);
 		}
-	}
-
-	public static String format(Message m) {
-		return m.text;
+		for(Message m : messages) {
+			logger.log(Level.INFO, Read.format(m));
+		}
 	}
 
 }

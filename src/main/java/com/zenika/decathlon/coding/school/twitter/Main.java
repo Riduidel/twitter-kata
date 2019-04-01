@@ -15,12 +15,17 @@ public class Main {
 		new Main().doMain(args);
 	}
 
-    @Argument(handler=SubCommandHandler.class)
+    @Argument(required=true,
+    		index=0,
+    		metaVar="action",
+    		usage="subcommand to run",
+    		handler=SubCommandHandler.class)
     @SubCommands({
         @SubCommand(name="post", impl=Post.class),
         @SubCommand(name="read", impl=Read.class),
         @SubCommand(name="follow", impl=Follow.class),
-        @SubCommand(name="unfollows", impl=Unfollow.class)
+        @SubCommand(name="unfollow", impl=Unfollow.class),
+        @SubCommand(name="wall", impl=Wall.class)
     })
     Command command;
 
@@ -32,13 +37,13 @@ public class Main {
 			// parse the arguments.
 			parser.parseArgument(args);
 
-			command.perform(this);
+			Store store = new Store();
+			command.perform(store);
 		} catch (CmdLineException e) {
 			// if there's a problem in the command line,
 			// you'll get this exception. this will report
 			// an error message.
 			System.err.println(e.getMessage());
-			System.err.println("java twitter-kata.jar [options...] arguments...");
 			// print the list of available options
 			parser.printUsage(System.err);
 			System.err.println();
