@@ -27,6 +27,8 @@ public class Main {
 	private void doMain(String[] args) {
 		CmdLineParser parser = new CmdLineParser(this);
 		try {
+			if(args.length==0)
+				throw new CmdLineException("you should give at least one command-line argument !");
 			// parse the arguments.
 			parser.parseArgument(args);
 
